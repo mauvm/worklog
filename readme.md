@@ -65,7 +65,9 @@ Then open the command prompt (`Windows+R > cmd > Enter`) and run the following c
     > cd Worklog
     > git clone https://github.com/mauvm/worklog.git
 
-To wrap it up, add `%SYSTEMDRIVE%\Users\%USERNAME%\Worklog\worklog\lib\` to your ["Path" _user variable_](http://www.nextofwindows.com/how-to-addedit-environment-variables-in-windows-7/) (**note:** the linked tutorial adds it to the _system variable_, dont do this - it installs _Worklog_ systemwide) to be able to run `> worklog <comment>` directly from the command prompt.
+To wrap it up, add `%SYSTEMDRIVE%\Users\%USERNAME%\Worklog\worklog\lib\` to your ["Path" _user variable_](http://www.nextofwindows.com/how-to-addedit-environment-variables-in-windows-7/) to be able to run `> worklog <comment>` directly from the command prompt.
+
+**NOTE:** The linked tutorial adds it to the _system variable_, dont do this - it installs _Worklog_ systemwide.
 
 And your done!
 
