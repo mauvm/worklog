@@ -4,7 +4,7 @@ As a freelancer administrative work is a necessary evil. This little Python scri
 
 ### What It Does
 
-Logging your work - and especially the time you spent working - should be easy and time inexpensive. _Worklog_ lets you log your work (duh) in a very straightforward way. Starting and continuing your work is done by calling the executable with an comment:
+Logging your work - and especially the time you spent working - should be easy and time inexpensive. _Worklog_ lets you log your work (duh) in a very straightforward way. Starting and continuing your work is done by calling the executable with a comment:
 
     $ worklog <comment>
 
@@ -32,33 +32,53 @@ The file is placed in a date formatted directory (see configuration options):
 
 ### Installation
 
-**Mac OSX / Linux**
+#### Mac OSX / Linux
 
-Place the `worklog` file in one of your [bin directories](http://www.linuxnix.com/2012/10/linux-directory-structure-explained-bin-folder.html), make it executable and create a log directory:
+Open your terminal application. Navigate to your [bin directory](http://www.linuxnix.com/2012/10/linux-directory-structure-explained-bin-folder.html):
 
-    $ mv ~/Downloads/worklog ~/.bin/worklog
-    $ chmod +x ~/.bin/worklog
-    $ mkdir ~/Worklog
+    $ cd /usr/bin
 
-Finally, running the worklog script to start logging your working times:
+**NOTE:** Change this to `cd ~/.bin` to use the bin directory of your profile on Linux. When doing this, putting `sudo` in front of every command is not necesarry.
 
-    $ worklog <comment>
+Clone the repository into **worklog_bin** and make the application executable:
 
-**Windows**
+    $ sudo git clone https://github.com/mauvm/worklog worklog_bin
+    $ sudo chmod +x worklog_bin/worklog.py
+    $ sudo ln -sf ${PWD}/worklog_bin/worklog.py worklog
 
-First, make sure [Python is in your PATH environment variable](http://docs.python.org/2/faq/windows). Then navigate to the folder you have placed the `worklog` file in:
+And voilà, _Worklog_ is installed!
 
-    C:\> cd <path to file>
+**NOTE:** Updating _Worklog_ is easy:
 
-From there, running worklog is pretty straight forward:
+    $ sudo cd /usr/bin/worklog_bin
+    $ sudo git pull
+    $ sudo chmod +x worklog.py
 
-    > python worklog <comment>
+#### Windows
+
+First, make sure [Python is in your PATH environment variable](http://docs.python.org/2/faq/windows) and [git is installed](http://msysgit.github.io/).
+
+Then open the command prompt (`Windows+R > cmd > Enter`) and run the following commands:
+
+    > cd %SYSTEMDRIVE%\Users\%USERNAME%\
+    > mkdir Worklog
+    > cd Worklog
+    > git clone https://github.com/mauvm/worklog.git
+
+To wrap it up, add `%SYSTEMDRIVE%\Users\%USERNAME%\Worklog\worklog\lib\` to your ["Path" _user variable_](http://www.nextofwindows.com/how-to-addedit-environment-variables-in-windows-7/) (**note:** the linked tutorial adds it to the _system variable_, dont do this - it installs _Worklog_ systemwide) to be able to run `> worklog <comment>` directly from the command prompt.
+
+And your done!
+
+**NOTE:** Updating _Worklog_ is easy:
+
+    $ cd %SYSTEMDRIVE%\Users\%USERNAME%\Worklog\worklog
+    $ git pull
 
 ### Usage
 
-Started (or continuing) work is automatically detected. At the end you only have to finish working by running `$ worklog -f <comment>`.
+Starting (and continuing) work is easily done with the `$ worklog <comment>` command. At the end you only have to finish working by running `$ worklog -f <comment>`.
 
-_Worklog_ also allows you to show the status of/and dumping your working log:
+_Worklog_ also allows you to show the status (and dump) your working log:
 
     $ worklog --help
     Usage: worklog [options]
