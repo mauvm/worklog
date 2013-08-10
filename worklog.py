@@ -1,4 +1,4 @@
-#!/usr/bin python
+#!/usr/bin/python
 from optparse import OptionParser
 from datetime import datetime
 import sys
