@@ -20,7 +20,7 @@ When you are done, finish logging with the `-f` flag:
     $ worklog -f Rounding up and committing work.
     Stopped. Total of 0:13:37.
 
-This is how the actual log file looks like:
+This is what the actual log file will look like:
 
     2013-08-11 11:56:40    S    It's a lovely saturday!
     2013-08-11 12:00:25    |    Refactoring shitty code from the previous developer..
@@ -45,7 +45,7 @@ Open your terminal application. Navigate to your [bin directory](http://www.linu
 
 Make sure [git is installed](http://git-scm.com/downloads). Then clone the repository into **worklog_bin**:
 
-    $ sudo git clone https://github.com/mauvm/worklog worklog_bin
+    $ sudo git clone https://github.com/mauvm/worklog worklog_bin --depth=1
 
 **Note:** Update _Worklog_ by running `cd /usr/bin/worklog_bin; sudo git pull; sudo chmod +x worklog.py`.
 
@@ -84,7 +84,7 @@ Then open the command prompt (`Windows+R > "cmd" > Enter`) and run the following
 
 Make sure [git is installed](http://git-scm.com/downloads). Then clone this repository into the current working directory:
 
-    > git clone https://github.com/mauvm/worklog.git worklog
+    > git clone https://github.com/mauvm/worklog.git worklog --depth=1
 
 **Note:** Update _Worklog_ by repeating the installation process, but instead of `git clone https://git...` run `git pull`.
 
