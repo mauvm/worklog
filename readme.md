@@ -138,32 +138,15 @@ By default, the log file is placed in your profile directory (`~/Worklog/%Y/Week
 
 Configuration options:
 
-<table>
-  <tr>
-    <th>Option</th><th>Default</th><th>Note</th>
-  </tr>
-  <tr>
-    <td>date_format</td><td>%Y-%m-%d</td><td></td>
-  </tr>
-  <tr>
-    <td>time_format</td><td>%H:%M:%S</td><td></td>
-  </tr>
-  <tr>
-    <td>directory</td><td>~/Worklog/</td><td>`~` expands to your _home directory_</td>
-  </tr>
-  <tr>
-    <td>filename</td><td>%Y/Week %U/%Y-%m-%d.log</td><td>2013/Week 31/2013-08-11.log</td>
-  </tr>
-  <tr>
-    <td>start_char</td><td>S</td><td></td>
-  </tr>
-  <tr>
-    <td>continue_char</td><td>|</td><td></td>
-  </tr>
-  <tr>
-    <td>stop_char</td><td>F</td><td></td>
-  </tr>
-</table>
+Option | Default | Note
+--- | --- | ---
+date_format | %Y-%m-%d | 
+time_format | %H:%M:%S | 
+directory | ~/Worklog/ | `~` expands to your _home directory_
+filename | %Y/Week %U/%Y-%m-%d.log | 2013/Week 31/2013-08-11.log
+start_char | S | 
+continue_char| \| | 
+stop_char | F | 
 
 **Note:** Be careful altering the _directory_ and _filename_ options, since it wil create a new folder with each / (or \ in Windows). Avoid using `..`.
 
