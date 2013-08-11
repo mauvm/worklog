@@ -2,6 +2,15 @@
 
 As a freelancer administrative work is a necessary evil. This little Python script allows you to log your work very easily - through the usage of a CLI.
 
+ - [What It Does](#what-it-does)
+ - [Usage](#usage)
+ - [Files](#files)
+ - [Installation](#installation)
+ - [Uninstallation](#uninstallation)
+ - [Configuration](#configuration)
+ - [Coming Up](#coming-up)
+ - [License](#license)
+
 ## What It Does
 
 Logging your work - and especially the time you spent working - should be easy and time inexpensive. _Worklog_ lets you log your work (dûh) in a very straightforward way.
@@ -30,6 +39,35 @@ This is what the actual log file will look like:
 The file is placed in a date formatted directory (see [configuration options](#configuration)):
 
     <worklog path>/2013/Week 31/2013-08-11.log
+
+## Usage
+
+Starting (and continuing) work is easily done with the `$ worklog <comment>` command. At the end you only have to finish working by running `$ worklog -f <comment>`.
+
+**Note:** To use special characters in your comment, escape them (`\|`, `\"`, `\>`) or surround your comment in quotations (`worklog "<comment>"`).
+
+_Worklog_ also allows you to show the status (and dump) your working log:
+
+    $ worklog --help
+    Usage: worklog [-d] [-s] [-r] [-f] <comment>
+
+    Small Python logging tool to make work and time management real easy.
+
+    Options:
+      -h, --help           Show this help message and exit.
+      -d, --dump           Dump log file.
+      -s, --status         Print working status and total time.
+      -r, --remove-record  Remove last record from the log.
+      -f, --finish         Finish working.
+
+## Files
+
+The logged records are stored per line, with the data in a tab separated format - to make parsing the data real easy.
+By default, the log file is placed in your profile directory (`~/Worklog/%Y/Week %U/%Y-%m-%d.log`, which translates into):
+
+    Mac OSX   /Users/Maurits/Worklog/2013/Week 31/2013-08-11.log
+    Linux     /home/Maurits/Worklog/2013/Week 31/2013-08-11.log
+    Windows   C:\Users\Maurits\Worklog\2013\Week 31\2013-08-11.log
 
 ## Installation
 
@@ -76,7 +114,7 @@ First, make sure [Python is in your PATH environment variable](http://docs.pytho
 
 Then open the command prompt (`Windows+R > "cmd" > Enter`) and run the following commands:
 
-    > cd %SYSTEMDRIVE%\Users\%USERNAME%\
+    > cd %USERPROFILE%
     > mkdir Worklog
     > cd Worklog
 
@@ -100,39 +138,38 @@ Make sure [git is installed](http://git-scm.com/downloads). Then clone this repo
 
 #### Finally:
 
-To wrap it up, add `%SYSTEMDRIVE%\Users\%USERNAME%\Worklog\worklog\lib\Windows\` to your ["Path" environment variable](http://www.nextofwindows.com/how-to-addedit-environment-variables-in-windows-7/) to be able to run `worklog <comment>` directly from the command prompt.
+To wrap it up, add `%USERPROFILE%\Worklog\worklog\lib\Windows\` to your ["Path" environment variable](http://www.nextofwindows.com/how-to-addedit-environment-variables-in-windows-7/) to be able to run `worklog <comment>` directly from the command prompt.
 
 **Note:** The linked tutorial adds it to the _system variables_, which installs _Worklog_ systemwide. Add it to the _user variables_ section to install _Worklog_ for your account only.
 
 And your done!
 
-## Usage
+## Uninstallation
 
-Starting (and continuing) work is easily done with the `$ worklog <comment>` command. At the end you only have to finish working by running `$ worklog -f <comment>`.
+### Mac OSX / Linux
 
-**Note:** To use special characters in your comment, escape them (`\|`, `\"`, `\>`) or surround your comment in quotations (`worklog "<comment>"`).
+Uninstalling _Worklog_ can be done by simply deleting the bin folder and the symlink:
 
-_Worklog_ also allows you to show the status (and dump) your working log:
+    $ sudo rm -rf /usr/bin/worklog_bin
+    $ sudo rm -f /usr/bin/worklog
 
-    $ worklog --help
-    Usage: worklog [options]
+Optionally you can delete the log files too:
 
-    Options:
-      -h, --help    show this help message and exit
-      -d, --dump    Dump log file.
-      -s, --status  Print working status and total time.
-      -f, --finish  Finish working.
+    $ rm -rf ~/Worklog
 
-**Note:** Showing status and dumping the log both give you the `MTBW = Mean Time Between Work`.
+### Windows
 
-## Files
+First navigate to your profile directory:
 
-The logged records are stored per line, with the data in a tab separated format - to make parsing the data real easy.
-By default, the log file is placed in your profile directory (`~/Worklog/%Y/Week %U/%Y-%m-%d.log` which translates into):
+    > cd %USERPROFILE%
 
-    Mac OSX   /Users/Maurits/Worklog/2013/Week 31/2013-08-11.log
-    Linux     /home/Maurits/Worklog/2013/Week 31/2013-08-11.log
-    Windows   C:\Users\Maurits\Worklog\2013\Week 31\2013-08-11.log
+To keep the log files but delete the _Worklog_ application, simply run:
+
+    > rm -rf Worklog\worklog
+
+Optionally you can uninstall _Worklog_ and delete the log files in one go:
+
+    > rm -rf Worklog
 
 ## Configuration
 
@@ -149,6 +186,7 @@ file_format | %Y/Week %U/%Y-%m-%d.log | 2013/Week 31/2013-08-11.log
 
 Some features I will be working on:
 
+- Find a better name (I'm open for suggestions);
 - Periodic pop-ups (to remind you of logging your work);
 - Logging focused window titles (to recall/prove what you did);
 - Option to export the log data;
