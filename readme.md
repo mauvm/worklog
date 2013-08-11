@@ -1,10 +1,11 @@
-## Worklog
+# Worklog
 
 As a freelancer administrative work is a necessary evil. This little Python script allows you to log your work very easily - through the usage of a CLI.
 
-### What It Does
+## What It Does
 
-Logging your work - and especially the time you spent working - should be easy and time inexpensive. _Worklog_ lets you log your work (duh) in a very straightforward way. Starting and continuing your work is done by calling the executable with a comment:
+Logging your work - and especially the time you spent working - should be easy and time inexpensive. _Worklog_ lets you log your work (dûh) in a very straightforward way.
+Starting and continuing your work is done by calling the executable with a comment:
 
     $ worklog <comment>
 
@@ -28,57 +29,88 @@ This is how the actual log file looks like:
 
 The file is placed in a date formatted directory (see configuration options):
 
-    <worklog path>/2013/Week 31/2013-08-10.txt
+    <worklog path>/2013/Week 31/2013-08-10.log
 
-### Installation
+## Installation
 
-#### Mac OSX / Linux
+### Mac OSX / Linux
 
 Open your terminal application. Navigate to your [bin directory](http://www.linuxnix.com/2012/10/linux-directory-structure-explained-bin-folder.html):
 
     $ cd /usr/bin
 
-**NOTE:** Change this to `cd ~/.bin` to use the bin directory of your profile on Linux. When doing this, putting `sudo` in front of every command is not necesarry.
+**Note:** Change this to `cd ~/.bin` (for Linux) or `cd ~/bin` (for Mac OSX) to install _Worklog_ for your account only. When doing this, putting `sudo` in front of every command is not necessary.
 
-Clone the repository into **worklog_bin** and make the application executable:
+**A) Installation with Git:**
+
+Make sure [git is installed](http://git-scm.com/downloads). Then clone the repository into **worklog_bin**:
 
     $ sudo git clone https://github.com/mauvm/worklog worklog_bin
+
+**Note:** Update _Worklog_ by running `cd /usr/bin/worklog_bin; sudo git pull; sudo chmod +x worklog.py`.
+
+**B) Manual installation:**
+
+[Download this repository](https://github.com/mauvm/worklog/archive/master.zip) as `worklog-master.zip` and extract it to `/usr/bin/worklog_bin`:
+
+    $ sudo unzip ~/Downloads/worklog-master.zip -d .
+    $ sudo rm -rf worklog_bin
+    $ sudo mv worklog-master worklog_bin
+
+**Note:** Update _Worklog_ by repeating the __entire__ installation process again.
+
+**Finally:**
+
+Make the application executable:
+
     $ sudo chmod +x worklog_bin/worklog.py
-    $ sudo ln -sf ${PWD}/worklog_bin/worklog.py worklog
+    $ sudo ln -sf $PWD/worklog_bin/worklog.py worklog
 
 And voilà, _Worklog_ is installed!
 
-**NOTE:** Updating _Worklog_ is easy:
+-----
 
-    $ sudo cd /usr/bin/worklog_bin
-    $ sudo git pull
-    $ sudo chmod +x worklog.py
+### Windows
 
-#### Windows
+First, make sure [Python is in your PATH environment variable](http://docs.python.org/2/faq/windows).
 
-First, make sure [Python is in your PATH environment variable](http://docs.python.org/2/faq/windows) and [git is installed](http://msysgit.github.io/).
-
-Then open the command prompt (`Windows+R > cmd > Enter`) and run the following commands:
+Then open the command prompt (`Windows+R > "cmd" > Enter`) and run the following commands:
 
     > cd %SYSTEMDRIVE%\Users\%USERNAME%\
     > mkdir Worklog
     > cd Worklog
-    > git clone https://github.com/mauvm/worklog.git
 
-To wrap it up, add `%SYSTEMDRIVE%\Users\%USERNAME%\Worklog\worklog\lib\` to your ["Path" _user variable_](http://www.nextofwindows.com/how-to-addedit-environment-variables-in-windows-7/) to be able to run `> worklog <comment>` directly from the command prompt.
+**A) Installation with Git:**
 
-**NOTE:** The linked tutorial adds it to the _system variable_, dont do this - it installs _Worklog_ systemwide.
+Make sure [git is installed](http://git-scm.com/downloads). Then clone this repository into the current working directory:
+
+    > git clone https://github.com/mauvm/worklog.git worklog
+
+**Note:** Update _Worklog_ by repeating the installation process, but instead of `git clone https://git...` run `git pull`.
+
+**B) Manual installation:**
+
+[Download this repository](https://github.com/mauvm/worklog/archive/master.zip) as `worklog-master.zip` and extract it to the current working directory:
+
+    > unzip ../Downloads/worklog-master.zip -d .
+    > rm -rf worklog
+    > rename worklog-master worklog
+
+**Note:** Update _Worklog_ by repeating the __entire__ installation process again.
+
+**Finally:**
+
+To wrap it up, add `%SYSTEMDRIVE%\Users\%USERNAME%\Worklog\worklog\lib\Windows\` to your ["Path" environment variable](http://www.nextofwindows.com/how-to-addedit-environment-variables-in-windows-7/) to be able to run `worklog <comment>` directly from the command prompt.
+
+**Note:** The linked tutorial adds it to the _system variables_, which installs _Worklog_ systemwide. Add it to the _user variables_ section to install _Worklog_ for your account only.
 
 And your done!
 
-**NOTE:** Updating _Worklog_ is easy:
-
-    $ cd %SYSTEMDRIVE%\Users\%USERNAME%\Worklog\worklog
-    $ git pull
-
-### Usage
+## Usage
 
 Starting (and continuing) work is easily done with the `$ worklog <comment>` command. At the end you only have to finish working by running `$ worklog -f <comment>`.
+
+**Note:** To use special characters in your comment, escape them (`\|`, `\"`, `\>`) or surround your comment in quotations (`worklog "<comment>"`).
 
 _Worklog_ also allows you to show the status (and dump) your working log:
 
@@ -91,15 +123,18 @@ _Worklog_ also allows you to show the status (and dump) your working log:
       -s, --status  Print working status and total time.
       -f, --finish  Finish working.
 
-### Files
+**Note:** `MTBW = Mean Time Between Work`.
+
+## Files
 
 The logged records are stored per line, with the data in a tab separated format - to make parsing the data real easy.
-By default, the log file is placed in your profile directory (`~/Worklog/%Y/Week %U/%Y-%m-%d.txt` which translates into):
+By default, the log file is placed in your profile directory (`~/Worklog/%Y/Week %U/%Y-%m-%d.log` which translates into):
 
-    Mac OSX / Linux    /home/<your username>/Worklog/2013/Week 31/2013-08-10.txt
-    Windows            C:\Users\<your username>\Worklog\2013\Week 31\2013-08-10.txt
+    Mac OSX   /Users/Maurits/Worklog/2013/Week 31/2013-08-11.log
+    Linux     /home/Maurits/Worklog/2013/Week 31/2013-08-11.log
+    Windows   C:\Users\Maurits\Worklog\2013\Week 31\2013-08-11.log
 
-### Configuration
+## Configuration
 
 Configuration options:
 
@@ -111,19 +146,16 @@ Configuration options:
     continue_char  |
     stop_char      F
 
-**NOTE:** Be careful altering the _directory_ and _filename_ options, since it wil create a new folder with each / (or \ in Windows). Avoid using `..`.
+**Note:** Be careful altering the _directory_ and _filename_ options, since it wil create a new folder with each / (or \ in Windows). Avoid using `..`.
 
-### To Do
+## Coming Up
 
-- Improve code structure (I do not master the Python philosophy yet);
-- Create simplistic GUI;
-- Periodic pop-up (to remind you of logging your work);
-- Logging focused window titles (to recall/prove what you did)
-- API for exporting the data;
-- Website for statistics (upload export file, enter format, view working time graphs)
-- Test on multiple platforms.
+- Periodic pop-ups (to remind you of logging your work);
+- Logging focused window titles (to recall/prove what you did);
+- Option to export the log data;
+- Website for statistics (upload export file, enter format, view working time graphs).
 
-### License
+## License
 
                 DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                         Version 2, December 2004

@@ -12,7 +12,7 @@ config['time_format']      = '%H:%M:%S'
 config['full_date_format'] = config['date_format'] + ' ' + config['time_format']
 
 config['directory']        = os.path.expanduser('~') + '/Worklog/'
-config['filename']         = '%Y/Week %U/' + config['date_format'] + '.txt' # Be careful, a slash will create a new directory
+config['filename']         = '%Y/Week %U/' + config['date_format'] + '.log' # Be careful, a slash will create a new directory
 
 config['start_char']       = 'S'
 config['continue_char']    = '|'
@@ -57,7 +57,7 @@ class WorkLog:
 
         # Output log record
         self.__write_line(command, comment, total_worktime)
-        self.__log_status(command, total_worktime)
+        self.__log_status(command, comment, total_worktime)
 
     def __get_cli_arguments(self):
         # CLI options
@@ -148,7 +148,7 @@ class WorkLog:
                 log_file.write(' ' + total)
             log_file.write('\n')
 
-    def __log_status(self, command, total):
+    def __log_status(self, command, comment, total):
         # Write to console
         if command == self.__config['start_char']:
             print('Started.')
