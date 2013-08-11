@@ -1,2 +1,2 @@
 @echo off
-python "..\..\worklog.py" %*
+python "%~dp0\..\..\worklog.py" %*

@@ -142,10 +142,10 @@ Option | Default | Note
 --- | --- | ---
 date_format | %Y-%m-%d | 
 time_format | %H:%M:%S | 
-directory | ~/Worklog/ | `~` expands to your _home directory_
+directory | ~/Worklog/ | `~` expands to your [home directory](http://en.wikipedia.org/wiki/Home_directory)
 filename | %Y/Week %U/%Y-%m-%d.log | 2013/Week 31/2013-08-11.log
 start_char | S | 
-continue_char| \| | 
+continue_char| &#124; | 
 stop_char | F | 
 
 **Note:** Be careful altering the _directory_ and _filename_ options, since it wil create a new folder with each / (or \ in Windows). Avoid using `..`.
