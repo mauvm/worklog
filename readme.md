@@ -149,10 +149,10 @@ Configuration options:
     <td>time_format</td><td>%H:%M:%S</td><td></td>
   </tr>
   <tr>
-    <td>directory</td><td>path of the worklog executable</td><td></td>
+    <td>directory</td><td>~/Worklog/</td><td>`~` expands to your _home directory_</td>
   </tr>
   <tr>
-    <td>filename</td><td>%Y/Week %U/%Y-%m-%d.log</td><td>(2013/Week 31/2013-08-11.log)</td>
+    <td>filename</td><td>%Y/Week %U/%Y-%m-%d.log</td><td>2013/Week 31/2013-08-11.log</td>
   </tr>
   <tr>
     <td>start_char</td><td>S</td><td></td>
