@@ -123,7 +123,7 @@ _Worklog_ also allows you to show the status (and dump) your working log:
       -s, --status  Print working status and total time.
       -f, --finish  Finish working.
 
-**Note:** `MTBW = Mean Time Between Work`.
+**Note:** Showing status and dumping the log both give you the `MTBW = Mean Time Between Work`.
 
 ## Files
 
@@ -138,17 +138,12 @@ By default, the log file is placed in your profile directory (`~/Worklog/%Y/Week
 
 Configuration options:
 
-Option | Default | Note
---- | --- | ---
-date_format | %Y-%m-%d | 
-time_format | %H:%M:%S | 
-directory | ~/Worklog/ | `~` expands to your [home directory](http://en.wikipedia.org/wiki/Home_directory)
-filename | %Y/Week %U/%Y-%m-%d.log | 2013/Week 31/2013-08-11.log
-start_char | S | 
-continue_char| &#124; | 
-stop_char | F | 
+Option      | Default                 | Note
+----------- | ----------------------- | -----------
+directory   | ~/Worklog/              | `~` expands to your [home directory](http://en.wikipedia.org/wiki/Home_directory)
+file_format | %Y/Week %U/%Y-%m-%d.log | 2013/Week 31/2013-08-11.log
 
-**Note:** Be careful altering the _directory_ and _filename_ options, since it wil create a new folder with each / (or \ in Windows). Avoid using `..`.
+**Note:** Be careful altering the _directory_ and _file_format_ options, since it wil create a new folder with each `/` (or `\` in Windows). Avoid using `..`.
 
 ## Coming Up
 

@@ -6,33 +6,32 @@ import os
 
 
 # Configuration
-config = {}
-config['date_format']      = '%Y-%m-%d'
-config['time_format']      = '%H:%M:%S'
-config['full_date_format'] = config['date_format'] + ' ' + config['time_format']
+directory   = os.path.expanduser('~') + '/Worklog/' # Change this to the destination of your choice
+file_format = '%Y/Week %U/%Y-%m-%d.log'
 
-config['directory']        = os.path.expanduser('~') + '/Worklog/'
-config['filename']         = '%Y/Week %U/' + config['date_format'] + '.log' # Be careful, a slash will create a new directory
-
-config['start_char']       = 'S'
-config['continue_char']    = '|'
-config['stop_char']        = 'F'
-
+# WorkLog class
 class WorkLog:
     """ Small script to start and stop logging work with optional commenting. """
 
-    __config   = None
-    __filename = None
-    __options  = None
-    __largs    = None
+    # Private variables - do not touch
+    __filename          = None
+    __full_date_format  = '%Y-%m-%d %H:%M:%S'
+    __chars             = {
+        'start_char'    : 'S',
+        'continue_char' : '|',
+        'finish_char'   : 'F'
+    }
+    __options           = None
+    __largs             = None
 
-    def __init__(self, config):
+    def __init__(self, directory, file_format):
         # Prepare configuration
-        self.__config                  = config
-        self.__filename                = config['directory'] + datetime.strftime(datetime.now(), config['filename'])
-        (self.__options, self.__largs) = self.__get_cli_arguments()
+        self.__filename = directory + datetime.strftime(datetime.now(), file_format)
+        parser          = self.__create_parser()
+        self.__options  = parser.parse_args()[0]
+        self.__largs    = parser.largs
         
-        # Determine (last)times
+        # Determine (last) times
         self.__touch_file()
 
         (last_line, last_time, last_is_end) = self.__get_last_breakpoint()
@@ -51,6 +50,12 @@ class WorkLog:
             print(total_worktime)
             return
 
+        # Force commenting
+        if len(self.__largs) == 0:
+            # print('Usage: ' + parser.usage)
+            print('You forgot to comment. :)')
+            return
+
         # Determine command and comment
         command = self.__determine_command(last_line)
         comment = ' '.join(self.__largs).strip().replace('\t', ' ')
@@ -59,9 +64,10 @@ class WorkLog:
         self.__write_line(command, comment, total_worktime)
         self.__log_status(command, comment, total_worktime)
 
-    def __get_cli_arguments(self):
+    def __create_parser(self):
         # CLI options
-        parser = OptionParser()
+        parser = OptionParser(usage='Usage: worklog [-d] [-s] [-f] <comment>',
+                              description='Small Python logging tool to make work and time management real easy.')
 
         parser.add_option('-d', '--dump',
                           action="store_true", dest="dump", default=False,
@@ -75,16 +81,16 @@ class WorkLog:
                           action="store_true", dest="stop", default=False,
                           help="Finish working.")
 
-        (options, args) = parser.parse_args()
-
-        return (options, parser.largs)
+        return parser
 
     def __touch_file(self):
+        # Create the directory - if necessary
         directory = os.path.dirname(self.__filename)
 
         if not os.path.exists(directory):
             os.makedirs(directory)
 
+        # Create file - if necessary
         with open(self.__filename, 'a') as log_file:
             log_file.close()
 
@@ -95,16 +101,16 @@ class WorkLog:
 
         for line in open(self.__filename):
             try:
-                pos = line.index('\t' + self.__config['start_char'])
-                if pos > 0:
-                    last_time = line[0:pos]
+                # Find last starting record
+                if line[20:21] == self.__chars['start_char']:
+                    last_time = line[0:19]
                     last_is_end = False
             except ValueError:
                 pass
             try:
-                pos = line.index('\t' + self.__config['stop_char'])
-                if pos > 0:
-                    last_time = line[0:pos]
+                # Find last finishing record
+                if line[20:21] == self.__chars['finish_char']:
+                    last_time = line[0:19]
                     last_is_end = True
             except ValueError:
                 pass
@@ -116,9 +122,10 @@ class WorkLog:
 
         if len(last_time) > 0:
             try:
-                total = str(datetime.now()-datetime.strptime(last_time, config['full_date_format']))
+                # Calculate time between last start/finish and now
+                total = str(datetime.now()-datetime.strptime(last_time, self.__full_date_format))
                 total = total[0:total.index('.')]
-                total = ('MTBW ' if get_mtbw else 'Total of ') + total + '.'
+                total = ('MTBW ' if get_mtbw else 'Total of ') + total + '.' # MTBW = Mean Time Between Work
             except ValueError:
                 pass
 
@@ -126,13 +133,14 @@ class WorkLog:
 
     def __determine_command(self, last_line):
         if self.__options.stop:
-            return self.__config['stop_char']
+            return self.__chars['finish_char']
         
-        command = self.__config['start_char']
+        command = self.__chars['start_char']
 
         try:
-            (self.__config['start_char'] + self.__config['continue_char']).index(last_line[last_line.index('\t')+1])
-            command = self.__config['continue_char']
+            # Continue if already started
+            (self.__chars['start_char'] + self.__chars['continue_char']).index(last_line[last_line.index('\t')+1])
+            command = self.__chars['continue_char']
         except ValueError:
             pass
 
@@ -141,23 +149,22 @@ class WorkLog:
     def __write_line(self, command, comment, total):
         # Write to file
         with open(self.__filename, 'a') as log_file:
-            log_file.write(datetime.now().strftime(self.__config['full_date_format']) +
+            log_file.write(datetime.now().strftime(self.__full_date_format) +
                            '\t' + command +
                            '\t' + comment)
-            if command == self.__config['stop_char']:
-                log_file.write(' ' + total)
+            if command == self.__chars['finish_char']:
+                log_file.write(' ' if comment[len(comment)-1:] in ['.', ',', ':', ';', '!', '?'] else '. ') # Append dot to comment if sentence is not closed
+                log_file.write(total)
             log_file.write('\n')
 
     def __log_status(self, command, comment, total):
         # Write to console
-        if command == self.__config['start_char']:
+        if command == self.__chars['start_char']:
             print('Started.')
-        elif command == self.__config['continue_char']:
+        elif command == self.__chars['continue_char']:
             print('Continuing. ' + total)
-        elif command == self.__config['stop_char']:
+        elif command == self.__chars['finish_char']:
             print('Stopped. ' + total)
-        # else:
-        #     print('Invalid command: ' + command + '.')
 
 if __name__ == '__main__':
-    log = WorkLog(config)
+    log = WorkLog(directory, file_format)
