@@ -22,14 +22,14 @@ When you are done, finish logging with the `-f` flag:
 
 This is how the actual log file looks like:
 
-    2013-08-10 11:56:40    S    It's a lovely saturday!
-    2013-08-10 12:00:25    |    Refactoring shitty code from the previous developer..
-    2013-08-10 12:06:09    |    Doing some other work for some other client.
-    2013-08-10 12:10:17    F    Rounding up and committing work. Total of 0:13:37.
+    2013-08-11 11:56:40    S    It's a lovely saturday!
+    2013-08-11 12:00:25    |    Refactoring shitty code from the previous developer..
+    2013-08-11 12:06:09    |    Doing some other work for some other client.
+    2013-08-11 12:10:17    F    Rounding up and committing work. Total of 0:13:37.
 
-The file is placed in a date formatted directory (see configuration options):
+The file is placed in a date formatted directory (see [configuration options](#configuration)):
 
-    <worklog path>/2013/Week 31/2013-08-10.log
+    <worklog path>/2013/Week 31/2013-08-11.log
 
 ## Installation
 
@@ -41,7 +41,7 @@ Open your terminal application. Navigate to your [bin directory](http://www.linu
 
 **Note:** Change this to `cd ~/.bin` (for Linux) or `cd ~/bin` (for Mac OSX) to install _Worklog_ for your account only. When doing this, putting `sudo` in front of every command is not necessary.
 
-**A) Installation with Git:**
+#### A) Installation with Git:
 
 Make sure [git is installed](http://git-scm.com/downloads). Then clone the repository into **worklog_bin**:
 
@@ -49,7 +49,7 @@ Make sure [git is installed](http://git-scm.com/downloads). Then clone the repos
 
 **Note:** Update _Worklog_ by running `cd /usr/bin/worklog_bin; sudo git pull; sudo chmod +x worklog.py`.
 
-**B) Manual installation:**
+#### B) Manual installation:
 
 [Download this repository](https://github.com/mauvm/worklog/archive/master.zip) as `worklog-master.zip` and extract it to `/usr/bin/worklog_bin`:
 
@@ -59,7 +59,7 @@ Make sure [git is installed](http://git-scm.com/downloads). Then clone the repos
 
 **Note:** Update _Worklog_ by repeating the __entire__ installation process again.
 
-**Finally:**
+#### Finally:
 
 Make the application executable:
 
@@ -80,7 +80,7 @@ Then open the command prompt (`Windows+R > "cmd" > Enter`) and run the following
     > mkdir Worklog
     > cd Worklog
 
-**A) Installation with Git:**
+#### A) Installation with Git:
 
 Make sure [git is installed](http://git-scm.com/downloads). Then clone this repository into the current working directory:
 
@@ -88,7 +88,7 @@ Make sure [git is installed](http://git-scm.com/downloads). Then clone this repo
 
 **Note:** Update _Worklog_ by repeating the installation process, but instead of `git clone https://git...` run `git pull`.
 
-**B) Manual installation:**
+#### B) Manual installation:
 
 [Download this repository](https://github.com/mauvm/worklog/archive/master.zip) as `worklog-master.zip` and extract it to the current working directory:
 
@@ -98,7 +98,7 @@ Make sure [git is installed](http://git-scm.com/downloads). Then clone this repo
 
 **Note:** Update _Worklog_ by repeating the __entire__ installation process again.
 
-**Finally:**
+#### Finally:
 
 To wrap it up, add `%SYSTEMDRIVE%\Users\%USERNAME%\Worklog\worklog\lib\Windows\` to your ["Path" environment variable](http://www.nextofwindows.com/how-to-addedit-environment-variables-in-windows-7/) to be able to run `worklog <comment>` directly from the command prompt.
 
@@ -138,17 +138,38 @@ By default, the log file is placed in your profile directory (`~/Worklog/%Y/Week
 
 Configuration options:
 
-    date_format    %Y-%m-%d
-    time_format    %H:%M:%S
-    directory      path of the worklog executable
-    filename       %Y/Week %U/%Y-%m-%d.txt (2013/Week 31/2013-08-10.txt)
-    start_char     S
-    continue_char  |
-    stop_char      F
+<table>
+  <tr>
+    <th>Option</th><th>Default</th><th>Note</th>
+  </tr>
+  <tr>
+    <td>date_format</td><td>%Y-%m-%d</td><td></td>
+  </tr>
+  <tr>
+    <td>time_format</td><td>%H:%M:%S</td><td></td>
+  </tr>
+  <tr>
+    <td>directory</td><td>path of the worklog executable</td><td></td>
+  </tr>
+  <tr>
+    <td>filename</td><td>%Y/Week %U/%Y-%m-%d.log</td><td>(2013/Week 31/2013-08-11.log)</td>
+  </tr>
+  <tr>
+    <td>start_char</td><td>S</td><td></td>
+  </tr>
+  <tr>
+    <td>continue_char</td><td>|</td><td></td>
+  </tr>
+  <tr>
+    <td>stop_char</td><td>F</td><td></td>
+  </tr>
+</table>
 
 **Note:** Be careful altering the _directory_ and _filename_ options, since it wil create a new folder with each / (or \ in Windows). Avoid using `..`.
 
 ## Coming Up
+
+Some features I will be working on:
 
 - Periodic pop-ups (to remind you of logging your work);
 - Logging focused window titles (to recall/prove what you did);
