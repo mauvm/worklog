@@ -75,9 +75,7 @@ By default, the log file is placed in your profile directory (`~/Worklog/%Y/Week
 
 Open your terminal application. Navigate to your [bin directory](http://www.linuxnix.com/2012/10/linux-directory-structure-explained-bin-folder.html):
 
-    $ cd /usr/bin
-
-**Note:** Change this to `cd ~/.bin` (for Linux) or `cd ~/bin` (for Mac OSX) to install _Worklog_ for your account only. When doing this, putting `sudo` in front of every command is not necessary.
+    $ cd /usr/local/bin
 
 #### A) Installation with Git:
 
@@ -85,11 +83,11 @@ Make sure [git is installed](http://git-scm.com/downloads). Then clone the repos
 
     $ sudo git clone https://github.com/mauvm/worklog worklog_bin --depth=1
 
-**Note:** Update _Worklog_ by running `cd /usr/bin/worklog_bin; sudo git pull; sudo chmod +x worklog.py`.
+**Note:** Update _Worklog_ by running `cd /usr/local/bin/worklog_bin; sudo git pull; sudo chmod +x worklog.py`.
 
 #### B) Manual installation:
 
-[Download this repository](https://github.com/mauvm/worklog/archive/master.zip) as `worklog-master.zip` and extract it to `/usr/bin/worklog_bin`:
+[Download this repository](https://github.com/mauvm/worklog/archive/master.zip) as `worklog-master.zip` and extract it to `/usr/local/bin/worklog_bin`:
 
     $ sudo unzip ~/Downloads/worklog-master.zip -d .
     $ sudo rm -rf worklog_bin
