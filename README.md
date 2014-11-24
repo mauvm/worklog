@@ -148,8 +148,8 @@ And your done!
 
 Uninstalling _Worklog_ can be done by simply deleting the bin folder and the symlink:
 
-    $ sudo rm -rf /usr/bin/worklog_bin
-    $ sudo rm -f /usr/bin/worklog
+    $ sudo rm -rf /usr/local/bin/worklog_bin
+    $ sudo rm -f /usr/local/bin/worklog
 
 Optionally you can delete the log files too:
 
@@ -195,7 +195,7 @@ Some features I will be working on:
                 DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                         Version 2, December 2004
     
-     Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+     Copyright (C) 2014 Maurits van Mastrigt <maurits@nerdieworks.nl>
     
      Everyone is permitted to copy and distribute verbatim or modified
      copies of this license document, and changing it is allowed as long
